@@ -12,6 +12,8 @@ on:
     # 触发目录
     paths:
       - "projects/**"
+  # 手动触发
+  workflow_dispatch:
 # 任务
 jobs:
   CI:
