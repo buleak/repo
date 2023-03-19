@@ -1,0 +1,56 @@
+# 工作流名称
+name: CI & CD
+# 触发条件
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - "hotfix-**"
+# 任务
+jobs:
+  CI:
+    # 运行环境
+    runs-on: ubuntu-latest
+    # 超时时间
+    timeout-minutes: 5
+    # 步骤
+    steps:
+      # 使用actions
+      - uses: actions/checkout@v3
+      # action：安装node
+      - uses: actions/setup-node@v3
+        # action 参数
+        with:
+          node-version: 19
+      # 执行命令
+      - run: sudo npm install -g pnpm
+      - run: pnpm install
+      # 命令名称（非必须）
+      - name: Build
+        run: pnpm build
+      # - name: Deploy
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #     REMOTE_USER: ${{ secrets.ROOT }}
+      #     REMOTE_HOST: ${{ secrets.SERVER_IP }}
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_ROOT }}
+      #     ARGS: "-rltgoDzvO"
+      #     SOURCE: "dist/"
+      #     TARGET: "/var/www/repo/"
+      #     EXCLUDE: "/dist/, /node_modules/"
+  # CD:
+  #   runs-on: ubuntu-latest
+  #   needs: CI
+  # 不能和 CI任务分开, CI任务构建完成后, 不会保留dist文件, CD任务里找不到dist
+  #   steps:
+  #     - name: Deploy
+  #       uses: easingthemes/ssh-deploy@main
+  #       env:
+  #         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_ROOT }}
+  #         ARGS: "-rltgoDzvO"
+  #         SOURCE: "dist/"
+  #         REMOTE_HOST: ${{ secrets.SERVER_IP }}
+  #         REMOTE_USER: ${{ secrets.ROOT }}
+  #         TARGET: "/var/www/react/login/"
+  #         EXCLUDE: "/dist/, /node_modules/"

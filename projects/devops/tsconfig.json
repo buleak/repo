@@ -1,0 +1,12 @@
+{
+  "extends": "tsconfig/vite-react.json",
+  "include": ["vite-env.d.ts", "shims.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+  }
+}
+
