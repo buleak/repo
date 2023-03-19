@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 19
         # 安装pnpm
-      - uses: pnpm/action-setup
+      - uses: pnpm/action-setup@v2
         with:
           version: latest
       # 命令名称（非必须）
