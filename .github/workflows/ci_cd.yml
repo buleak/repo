@@ -29,12 +29,13 @@ jobs:
         # action 参数
         with:
           node-version: 19
-      # 命令名称（非必须）
-      - name: Install pnpm
         # 安装pnpm
-        uses: pnpm/action-setup
+      - uses: pnpm/action-setup
         with:
           version: latest
+      # 命令名称（非必须）
+      # - name: Install pnpm
+      #   run: pnpm install
         # 执行命令
       # - name: Deploy
       #   uses: easingthemes/ssh-deploy@main
