@@ -2,11 +2,16 @@
 name: CI & CD
 # 触发条件
 on:
+  # 触发操作
   push:
+    # 触发分支
     branches:
       - main
       - dev
       - "hotfix-**"
+    # 触发目录
+    paths:
+      - "projects/**"
 # 任务
 jobs:
   CI:
@@ -17,6 +22,7 @@ jobs:
     # 步骤
     steps:
       # 使用actions
+      # 校验yml是否有语法错误
       - uses: actions/checkout@v3
       # action：安装node
       - uses: actions/setup-node@v3
@@ -24,10 +30,12 @@ jobs:
         with:
           node-version: 19
       # 命令名称（非必须）
-      - name: Use Pnpm
+      - name: Install pnpm
+        # 安装pnpm
+        uses: pnpm/action-setup
+        with:
+          version: latest
         # 执行命令
-        run: sudo npm install -g pnpm
-      # - run: pnpm install
       # - name: Deploy
       #   uses: easingthemes/ssh-deploy@main
       #   env:
@@ -41,8 +49,23 @@ jobs:
   # CD:
   #   runs-on: ubuntu-latest
   #   needs: CI
-  # 不能和 CI任务分开, CI任务构建完成后, 不会保留dist文件, CD任务里找不到dist
   #   steps:
+  # CI任务构建完成后, 不会保留dist文件, CD任务里找不到dist
+  # ================ 需要先上传构建产物，再在其他任务中下载构建产物
+  #     # 上传构建产物
+  #     - name: Upload artifacts
+  #       uses: actions/upload-artifact
+  #       with:
+  #         # 构建产物目录名称
+  #         name: dist
+  #         # 上传到哪个目录下
+  #         path: bin
+  #     # 下载构建产物
+  #     - name: Download artifacts
+  #       uses: actions/download-artifact
+  #       with:
+  #         name: dist
+  #         path: bin
   #     - name: Deploy
   #       uses: easingthemes/ssh-deploy@main
   #       env:
