@@ -23,12 +23,11 @@ jobs:
         # action 参数
         with:
           node-version: 19
-      # 执行命令
-      - run: sudo npm install -g pnpm
-      - run: pnpm install
       # 命令名称（非必须）
-      - name: Build
-        run: pnpm build
+      - name: Use Pnpm
+        # 执行命令
+        run: sudo npm install -g pnpm
+      # - run: pnpm install
       # - name: Deploy
       #   uses: easingthemes/ssh-deploy@main
       #   env:
