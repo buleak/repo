@@ -10,12 +10,8 @@
     "module": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "ScriptHost"],
     "noEmit": true,
-    "strict": true,
     "allowJs": true,
     "incremental": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   }
