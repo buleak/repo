@@ -1,5 +1,5 @@
 // 错误降级UI
-'use clien'
+'use client'
 export default () => {
   return <div>Error</div>
 }

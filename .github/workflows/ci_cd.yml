@@ -9,6 +9,7 @@ on:
       - main
       - dev
       - "hotfix-**"
+      - "feature-**"
     # 触发目录
     paths:
       - "projects/**"
